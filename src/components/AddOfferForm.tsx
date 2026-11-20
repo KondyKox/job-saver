@@ -41,7 +41,7 @@ const AddOfferForm = () => {
 
       <button
         type="submit"
-        className="border-4 border-green-700 cursor-pointer rounded-2xl px-4 py-2 w-full bg-green-500 transition-colors duration-200 ease-in-out hover:bg-green-700 active:scale-90"
+        className="btn border-4 border-green-700 w-full bg-green-500 hover:bg-green-700"
       >
         Add
       </button>

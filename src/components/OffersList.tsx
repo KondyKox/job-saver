@@ -3,6 +3,14 @@ import { offers } from "@/db/schema";
 
 const OffersList = async () => {
   const allOffers = await db.select().from(offers);
+
+  if (!allOffers || allOffers.length === 0)
+    return (
+      <p className="rounded-2xl p-4 bg-neutral-700 text-xl">
+        No saved job offers
+      </p>
+    );
+
   return (
     <ul>
       {allOffers.map((o) => (

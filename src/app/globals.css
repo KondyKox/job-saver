@@ -6,7 +6,7 @@
 
 @layer base {
   body {
-    @apply bg-surface text-neutral-100;
+    @apply bg-surface text-neutral-100 flex justify-center items-center;
   }
 }
 

@@ -12,7 +12,7 @@ const OffersList = async () => {
     );
 
   return (
-    <ul>
+    <ul className="flex flex-col justify-center items-center gap-4 bg-neutral-800 p-4 rounded-2xl">
       {allOffers.map((o) => (
         <li key={o.id}>
           {o.title} {o.company} {o.url}

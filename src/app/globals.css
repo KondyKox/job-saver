@@ -22,7 +22,7 @@
 
   .field label {
     @apply pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2
-           bg-surface px-1 text-neutral-400 transition-all duration-75;
+           bg-neutral-800 px-1 text-neutral-400 transition-all duration-75;
   }
 
   /* label floats up onto the border */

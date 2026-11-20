@@ -4,7 +4,7 @@ const AddOfferForm = () => {
   return (
     <form
       action={addOffer}
-      className="border rounded-2xl px-4 py-8 flex flex-col gap-4 justify-center items-center w-full md:w-1/2"
+      className="bg-neutral-800 rounded-2xl px-4 py-8 flex flex-col gap-4 justify-center items-center w-full md:w-1/2"
     >
       <div className="field">
         <input

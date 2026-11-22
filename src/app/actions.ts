@@ -11,11 +11,11 @@ const isStatus = (v: string): v is Status =>
   (statusEnum.enumValues as readonly string[]).includes(v);
 
 export const addOffer = async (_prev: unknown, formData: FormData) => {
-  try {
-    const title = String(formData.get("title"));
-    const company = String(formData.get("company"));
-    const url = String(formData.get("url"));
+  const title = String(formData.get("title"));
+  const company = String(formData.get("company"));
+  const url = String(formData.get("url"));
 
+  try {
     const existing = await db
       .select()
       .from(offers)
@@ -43,5 +43,18 @@ export const updateStatus = async (formData: FormData) => {
     revalidatePath("/");
   } catch (err) {
     console.error("Error updating offer's status:", err);
+  }
+};
+
+export const deleteOffer = async (formData: FormData) => {
+  const id = Number(formData.get("id"));
+
+  if (!Number.isInteger(id) || id <= 0) return;
+
+  try {
+    await db.delete(offers).where(eq(offers.id, id));
+    revalidatePath("/");
+  } catch (err) {
+    console.error("Error deleting an offer:", err);
   }
 };

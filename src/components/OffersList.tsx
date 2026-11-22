@@ -1,4 +1,4 @@
-import { updateStatus } from "@/app/actions";
+import { deleteOffer, updateStatus } from "@/app/actions";
 import { db } from "@/db";
 import { offers, statusEnum } from "@/db/schema";
 import StatusSelect from "./StatusSelect";
@@ -45,7 +45,7 @@ const OffersList = async () => {
               Check offer
             </a>
 
-            <form action="">
+            <form action={deleteOffer}>
               <input type="hidden" name="id" value={o.id} />
               <button
                 type="submit"

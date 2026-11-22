@@ -15,7 +15,8 @@
     @apply relative w-full;
   }
 
-  .field input {
+  .field input,
+  .field textarea {
     @apply w-full rounded-xl border border-neutral-600 bg-transparent px-4 py-3
            outline-none transition-colors focus:border-neutral-300 focus:bg-neutral-700 not-focus:placeholder:opacity-0;
   }
@@ -27,11 +28,14 @@
 
   /* label floats up onto the border */
   .field input:focus + label,
-  .field input:not(:placeholder-shown) + label {
+  .field textarea:focus + label,
+  .field input:not(:placeholder-shown) + label,
+  .field textarea:not(:placeholder-shown) + label {
     @apply top-0 text-xs;
   }
 
-  .field input:focus + label {
+  .field input:focus + label,
+  .field textarea:focus + label {
     @apply text-neutral-200;
   }
 

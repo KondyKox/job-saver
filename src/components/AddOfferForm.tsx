@@ -28,6 +28,16 @@ const AddOfferForm = () => {
       </div>
 
       <div className="field">
+        <textarea
+          id="description"
+          name="description"
+          placeholder=" "
+          required
+        />
+        <label htmlFor="description">Description</label>
+      </div>
+
+      <div className="field">
         <input type="url" id="url" name="url" placeholder=" " required />
         <label htmlFor="url">URL</label>
       </div>

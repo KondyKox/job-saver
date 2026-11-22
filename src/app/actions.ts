@@ -14,6 +14,7 @@ export const addOffer = async (_prev: unknown, formData: FormData) => {
   const title = String(formData.get("title"));
   const company = String(formData.get("company"));
   const url = String(formData.get("url"));
+  const description = formData.get("description")?.toString().trim() || null;
 
   try {
     const existing = await db
@@ -24,10 +25,11 @@ export const addOffer = async (_prev: unknown, formData: FormData) => {
 
     if (existing.length > 0) return { message: "Already saved" };
 
-    await db.insert(offers).values({ title, company, url });
+    await db.insert(offers).values({ title, company, description, url });
     revalidatePath("/");
   } catch (err) {
     console.error("Error adding an offer:", err);
+    return { message: "Something went wrong" };
   }
 };
 

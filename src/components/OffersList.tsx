@@ -1,17 +1,10 @@
+import { updateStatus } from "@/app/actions";
 import { db } from "@/db";
-import { offers } from "@/db/schema";
-
-type Status = "saved" | "applied" | "interview" | "rejected";
+import { offers, statusEnum } from "@/db/schema";
+import StatusSelect from "./StatusSelect";
 
 const OffersList = async () => {
   const allOffers = await db.select().from(offers);
-
-  const statusColor: Record<Status, string> = {
-    saved: "text-blue-400",
-    applied: "text-green-400",
-    interview: "text-yellow-500",
-    rejected: "text-red-500",
-  };
 
   if (!allOffers || allOffers.length === 0)
     return (
@@ -38,9 +31,15 @@ const OffersList = async () => {
             >
               Check offer
             </a>
-            <span className={`italic text-xs ${statusColor[o.status]}`}>
-              {o.status}
-            </span>
+
+            <form action={updateStatus} className="flex items-center gap-2">
+              <input type="hidden" name="id" value={o.id} />
+              <StatusSelect
+                key={o.status}
+                statuses={statusEnum.enumValues}
+                current={o.status}
+              />
+            </form>
           </div>
         </li>
       ))}

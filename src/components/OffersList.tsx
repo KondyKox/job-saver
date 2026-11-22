@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { offers, statusEnum } from "@/db/schema";
 import StatusSelect from "./StatusSelect";
 import { Trash } from "lucide-react";
+import Link from "next/link";
 
 const OffersList = async () => {
   const allOffers = await db.select().from(offers);
@@ -21,15 +22,18 @@ const OffersList = async () => {
           key={o.id}
           className="flex flex-col justify-center gap-3 w-full p-4 bg-neutral-900 rounded-xl max-h-75 overflow-y-auto"
         >
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold">{o.title}</h2>
+          <div className="flex justify-between items-start gap-2">
+            <h2 className="text-2xl font-bold">
+              <Link
+                href={`/offers/${o.id}`}
+                className="hover:text-blue-500 transition-colors duration-200"
+              >
+                {o.title}
+              </Link>
+            </h2>
             <form action={updateStatus} className="flex items-center gap-2">
               <input type="hidden" name="id" value={o.id} />
-              <StatusSelect
-                key={o.status}
-                statuses={statusEnum.enumValues}
-                current={o.status}
-              />
+              <StatusSelect key={o.status} current={o.status} />
             </form>
           </div>
 
@@ -40,7 +44,7 @@ const OffersList = async () => {
               href={o.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn text-xs bg-blue-500 w-fit hover:bg-white hover:text-blue-500 italic font-bold"
+              className="btn link"
             >
               Check offer
             </a>

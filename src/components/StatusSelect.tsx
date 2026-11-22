@@ -1,14 +1,10 @@
 "use client";
 
-type Props = {
-  statuses: readonly string[];
-  current: Status;
-  className?: string;
-};
+import { statusEnum } from "@/db/schema";
 
 type Status = "saved" | "applied" | "interview" | "rejected";
 
-const StatusSelect = ({ statuses, current }: Props) => {
+const StatusSelect = ({ current }: { current: Status }) => {
   const statusColor: Record<Status, string> = {
     saved: "text-blue-400",
     applied: "text-green-400",
@@ -24,7 +20,7 @@ const StatusSelect = ({ statuses, current }: Props) => {
                 hover:text-black px-2 py-1 rounded-2xl ${statusColor[current]} ...`}
       onChange={(e) => e.currentTarget.form?.requestSubmit()}
     >
-      {statuses.map((s) => (
+      {statusEnum.enumValues.map((s) => (
         <option key={s} value={s}>
           {s}
         </option>

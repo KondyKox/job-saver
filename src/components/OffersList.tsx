@@ -1,8 +1,17 @@
 import { db } from "@/db";
 import { offers } from "@/db/schema";
 
+type Status = "saved" | "applied" | "interview" | "rejected";
+
 const OffersList = async () => {
   const allOffers = await db.select().from(offers);
+
+  const statusColor: Record<Status, string> = {
+    saved: "text-blue-400",
+    applied: "text-green-400",
+    interview: "text-yellow-500",
+    rejected: "text-red-500",
+  };
 
   if (!allOffers || allOffers.length === 0)
     return (
@@ -20,14 +29,19 @@ const OffersList = async () => {
         >
           <h2 className="text-2xl font-bold">{o.title}</h2>
           <span className="">{o.company}</span>
-          <a
-            href={o.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn text-xs bg-blue-500 w-fit hover:bg-white hover:text-blue-500 italic font-bold"
-          >
-            Check offer
-          </a>
+          <div className="flex justify-between items-center">
+            <a
+              href={o.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn text-xs bg-blue-500 w-fit hover:bg-white hover:text-blue-500 italic font-bold"
+            >
+              Check offer
+            </a>
+            <span className={`italic text-xs ${statusColor[o.status]}`}>
+              {o.status}
+            </span>
+          </div>
         </li>
       ))}
     </ul>

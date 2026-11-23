@@ -54,11 +54,11 @@ async function OfferDetails({ params }: Props) {
         </div>
       </header>
 
-      <div className="rounded-2xl p-4 bg-neutral-700 text-xl">
+      <div className="rounded-2xl p-4 bg-neutral-700">
         {offer.description ? (
           <p className="whitespace-pre-wrap">{offer.description}</p>
         ) : (
-          <p>No description</p>
+          <p className="text-xl">No description</p>
         )}
       </div>
     </main>

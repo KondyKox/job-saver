@@ -1,4 +1,4 @@
-import { deleteOffer } from "@/app/actions";
+import { deleteOffer, updateStatus } from "@/app/actions";
 import StatusSelect from "@/components/StatusSelect";
 import { db } from "@/db";
 import { offers } from "@/db/schema";
@@ -50,7 +50,10 @@ async function OfferDetails({ params }: Props) {
             </button>
           </form>
 
-          <StatusSelect current={offer.status} />
+          <form action={updateStatus} className="flex items-center gap-2">
+            <input type="hidden" name="id" value={offer.id} />
+            <StatusSelect key={offer.status} current={offer.status} />
+          </form>
         </div>
       </header>
 

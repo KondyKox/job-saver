@@ -1,4 +1,5 @@
 import { deleteOffer, updateStatus } from "@/app/actions";
+import CoverLetterGenerator from "@/components/CoverLetterGenerator";
 import StatusSelect from "@/components/StatusSelect";
 import { db } from "@/db";
 import { offers } from "@/db/schema";
@@ -37,10 +38,10 @@ async function OfferDetails({ params }: Props) {
       </Link>
 
       <header className="flex flex-col justify-center items-center gap-2 bg-neutral-800 rounded-2xl p-4">
-        <h1>{offer.title}</h1>
-        <p className="text-xl text-neutral-400">{offer.company}</p>
+        <h1 className="text-3xl md:text-4xl lg:text-5xl">{offer.title}</h1>
+        <p className="text-lg text-neutral-400">{offer.company}</p>
 
-        <div className="flex justify-between items-center gap-2 w-full">
+        <div className="flex justify-between items-center gap-2 w-full mt-4">
           <form
             action={deleteOffer}
             className="flex justify-center items-stretch gap-2"
@@ -55,7 +56,10 @@ async function OfferDetails({ params }: Props) {
             >
               Check offer
             </a>
-            <button className="btn border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white italic font-bold text-xs">
+            <button
+              className="btn border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white italic font-bold text-xs"
+              title="Delete offer"
+            >
               Delete
             </button>
           </form>
@@ -67,13 +71,22 @@ async function OfferDetails({ params }: Props) {
         </div>
       </header>
 
-      <div className="rounded-2xl p-4 bg-neutral-700">
+      <section className="rounded-2xl p-4 bg-neutral-700 h-72 flex flex-col gap-2">
+        <h2>Job description</h2>
         {offer.description ? (
           <p className="whitespace-pre-wrap">{offer.description}</p>
         ) : (
-          <p className="text-xl">No description</p>
+          <p className="text-xl text-red-300">No description</p>
         )}
-      </div>
+      </section>
+
+      <section className="bg-neutral-800 p-4 rounded-2xl flex flex-col gap-2 border-2 border-green-400 items-stretch">
+        <h2>Cover Letter</h2>
+        <p className="text-sm text-neutral-400">
+          Generate personalized cover letter using AI.
+        </p>
+        <CoverLetterGenerator />
+      </section>
     </main>
   );
 }

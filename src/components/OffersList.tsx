@@ -1,6 +1,6 @@
 import { deleteOffer, updateStatus } from "@/app/actions";
 import { db } from "@/db";
-import { offers, statusEnum } from "@/db/schema";
+import { offers } from "@/db/schema";
 import StatusSelect from "./StatusSelect";
 import { Trash } from "lucide-react";
 import Link from "next/link";
@@ -23,7 +23,7 @@ const OffersList = async () => {
           className="flex flex-col justify-center gap-3 w-full p-4 bg-neutral-900 rounded-xl max-h-75 overflow-y-auto"
         >
           <div className="flex justify-between items-start gap-2">
-            <h2 className="text-2xl font-bold">
+            <h2>
               <Link
                 href={`/offers/${o.id}`}
                 className="hover:text-blue-500 transition-colors duration-200"

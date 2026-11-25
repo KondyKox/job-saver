@@ -30,9 +30,10 @@ async function OfferDetails({ params }: Props) {
     <main>
       <Link
         href="/"
-        className="text-neutral-400 hover:text-white hover:bg-red-400 p-2 rounded-2xl transition-colors duration-200 w-fit absolute top-4 left-4"
+        className="text-neutral-400 hover:text-white hover:bg-red-400 px-4 py-2 rounded-2xl transition-colors duration-200 
+                    w-fit absolute top-4 left-4 flex justify-center items-center gap-2"
       >
-        <ArrowLeft size={18} />
+        <ArrowLeft size={18} /> <span className="hidden md:block">Go Back</span>
       </Link>
 
       <header className="flex flex-col justify-center items-center gap-2 bg-neutral-800 rounded-2xl p-4">

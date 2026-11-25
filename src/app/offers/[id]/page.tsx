@@ -80,13 +80,7 @@ async function OfferDetails({ params }: Props) {
         )}
       </section>
 
-      <section className="bg-neutral-800 p-4 rounded-2xl flex flex-col gap-2 border-2 border-green-400 items-stretch">
-        <h2>Cover Letter</h2>
-        <p className="text-sm text-neutral-400">
-          Generate personalized cover letter using AI.
-        </p>
-        <CoverLetterGenerator />
-      </section>
+      <CoverLetterGenerator />
     </main>
   );
 }

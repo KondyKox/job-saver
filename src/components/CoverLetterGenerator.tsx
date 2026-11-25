@@ -20,7 +20,12 @@ const CoverLetterGenerator = () => {
   };
 
   return (
-    <>
+    <section className="bg-neutral-800 p-4 rounded-2xl flex flex-col gap-2 border-2 border-green-400 items-stretch">
+      <h2>Cover Letter</h2>
+      <p className="text-sm text-neutral-400">
+        Generate personalized cover letter using AI.
+      </p>
+
       <form action={undefined} className="mt-2">
         <button
           className="btn border-2 w-full text-xs border-green-500 text-green-500 hover:text-white hover:bg-green-400"
@@ -79,7 +84,7 @@ const CoverLetterGenerator = () => {
           <Download size={16} /> Download PDF
         </button>
       </form>
-    </>
+    </section>
   );
 };
 

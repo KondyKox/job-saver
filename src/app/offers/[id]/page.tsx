@@ -3,6 +3,8 @@ import StatusSelect from "@/components/StatusSelect";
 import { db } from "@/db";
 import { offers } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { Suspense } from "react";
@@ -26,6 +28,13 @@ async function OfferDetails({ params }: Props) {
 
   return (
     <main>
+      <Link
+        href="/"
+        className="text-neutral-400 hover:text-white hover:bg-red-400 p-2 rounded-2xl transition-colors duration-200 w-fit absolute top-4 left-4"
+      >
+        <ArrowLeft size={18} />
+      </Link>
+
       <header className="flex flex-col justify-center items-center gap-2 bg-neutral-800 rounded-2xl p-4">
         <h1>{offer.title}</h1>
         <p className="text-xl text-neutral-400">{offer.company}</p>

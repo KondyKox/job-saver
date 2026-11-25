@@ -4,6 +4,7 @@ import { db } from "@/db";
 import { offers, statusEnum } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 type Status = (typeof statusEnum.enumValues)[number];
 
@@ -55,8 +56,10 @@ export const deleteOffer = async (formData: FormData) => {
 
   try {
     await db.delete(offers).where(eq(offers.id, id));
-    revalidatePath("/");
   } catch (err) {
     console.error("Error deleting an offer:", err);
+    return;
   }
+  revalidatePath("/");
+  redirect("/");
 };

@@ -1,11 +1,7 @@
+import { STATUSES } from "@/lib/statuses";
 import { pgTable, integer, text, timestamp, pgEnum } from "drizzle-orm/pg-core";
 
-export const statusEnum = pgEnum("status", [
-  "saved",
-  "applied",
-  "interview",
-  "rejected",
-]);
+export const statusEnum = pgEnum("status", STATUSES);
 
 export const offers = pgTable("offers", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),

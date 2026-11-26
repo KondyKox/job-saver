@@ -80,7 +80,7 @@ async function OfferDetails({ params }: Props) {
         )}
       </section>
 
-      <CoverLetterGenerator />
+      <CoverLetterGenerator offerId={offer.id} />
     </main>
   );
 }

@@ -2,6 +2,7 @@
 
 import { db } from "@/db";
 import { offers, statusEnum } from "@/db/schema";
+import { generateCoverLetter } from "@/lib/cover-letter";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -62,4 +63,30 @@ export const deleteOffer = async (formData: FormData) => {
   }
   revalidatePath("/");
   redirect("/");
+};
+
+export const generateCoverLetterAction = async (
+  _prev: unknown,
+  formData: FormData,
+) => {
+  const id = Number(formData.get("id"));
+  if (!Number.isInteger(id) || id <= 0) return { message: "Invalid offer" };
+
+  try {
+    const [offer] = await db
+      .select()
+      .from(offers)
+      .where(eq(offers.id, id))
+      .limit(1);
+
+    if (!offer) return { message: "Offer not found" };
+    if (!offer.description?.trim())
+      return { message: "Add a job description first" };
+
+    const coverLetter = await generateCoverLetter(offer);
+    return { coverLetter };
+  } catch (err) {
+    console.error("Cover letter generation failed:", err);
+    return { message: "AI is busy right now, try again in a moment." };
+  }
 };

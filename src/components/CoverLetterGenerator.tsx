@@ -1,16 +1,20 @@
 "use client";
 
+import { generateCoverLetterAction } from "@/app/actions";
 import { Check, Copy, Download } from "lucide-react";
-import { useRef, useState } from "react";
+import { useActionState, useRef, useState } from "react";
 
-const CoverLetterGenerator = () => {
+const CoverLetterGenerator = ({ offerId }: { offerId: number }) => {
+  const [state, formAction, isPending] = useActionState(
+    generateCoverLetterAction,
+    undefined,
+  );
   const coverLetterRef = useRef<HTMLTextAreaElement>(null);
-  const [coverLetter, setCoverLetter] = useState<string>("");
   const [copied, setCopied] = useState<boolean>(false);
 
   const handleCopyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(coverLetter);
+      await navigator.clipboard.writeText(coverLetterRef.current?.value ?? "");
 
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
@@ -26,27 +30,45 @@ const CoverLetterGenerator = () => {
         Generate personalized cover letter using AI.
       </p>
 
-      <form action={undefined} className="mt-2">
+      <form action={formAction} className="mt-2">
+        <input type="hidden" name="id" id="id" value={offerId} />
         <button
-          className="btn border-2 w-full text-xs border-green-500 text-green-500 hover:text-white hover:bg-green-400"
+          className={
+            "btn border-2 w-full text-xs border-green-500 text-green-500 hover:text-white hover:bg-green-400"
+          }
           title="Generate cover letter"
+          disabled={isPending}
         >
-          Generate Cover Letter
+          {isPending ? (
+            <span className="inline-flex gap-1">
+              {[0, 1, 2].map((i) => (
+                <span
+                  key={i}
+                  className="animate-bounce"
+                  style={{ animationDelay: `${i * 150}ms` }}
+                >
+                  .
+                </span>
+              ))}
+            </span>
+          ) : (
+            "Generate Cover Letter"
+          )}
         </button>
       </form>
 
       <hr className="border rounded-2xl my-6 border-neutral-400" />
 
-      <form action={undefined} className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4">
         <h2>Generated Cover Letter</h2>
         <div className="w-full relative">
           <textarea
             ref={coverLetterRef}
+            key={state?.coverLetter}
+            defaultValue={state?.coverLetter ?? ""}
             name="coverLetter"
             id="coverLetter"
-            className="bg-neutral-700 rounded-xl p-4 w-full"
-            value={coverLetter}
-            onChange={(e) => setCoverLetter(e.target.value)}
+            className="bg-neutral-700 rounded-xl p-4 w-full h-72"
           ></textarea>
 
           <button
@@ -77,13 +99,12 @@ const CoverLetterGenerator = () => {
           </button>
         </div>
         <button
-          type="submit"
           className="btn flex justify-center items-center gap-2 bg-green-500 hover:bg-green-700"
           title="Download cover letter"
         >
           <Download size={16} /> Download PDF
         </button>
-      </form>
+      </div>
     </section>
   );
 };
